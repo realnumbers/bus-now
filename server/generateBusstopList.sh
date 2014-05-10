@@ -63,7 +63,7 @@ parse(){
 	done
 }
 
-TARGET=busstops.json
+TARGET=../data/busstops.json
 rm $TARGET 
 parse
 echo "{
@@ -75,7 +75,7 @@ cat it.json >> $TARGET
 echo "" >> $TARGET
 echo "]" >> $TARGET
 echo "}" >> $TARGET
-json-glib-validate busstops.json
+json-glib-validate $TARGET
 rm de.json
 rm it.json
 
