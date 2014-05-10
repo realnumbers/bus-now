@@ -1,0 +1,80 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+	<meta charset="UTF-8">
+	<title>busmap</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+
+	<!-- build:css styles/vendor.css -->
+	<link rel="stylesheet" href="lib/styles/leaflet.css">
+	<!-- bower:css -->
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:css styles/main.css -->
+	<link rel="stylesheet" href="styles/main.css">
+	<!-- endbuild -->
+	<link rel="shortcut icon" href="/favicon.ico">
+
+</head>
+
+<body>
+	
+	<header class="header-bar above-map hidden" onClick="hideDetails()">
+		<div class="menu-btn" onClick="showMenu()";> &#9776; </div>
+	</header>
+	
+	<section class="ui above-map">
+		<section class="view details">
+			<h2 class="station-title">Piazza Walther</h2>
+			<section class="arriving-bus">
+				<div class="bus-time">Now</div>
+				<span class="bus-line">7</span>
+				<span class="line-name">piazza Gries</span>
+			</section>
+			<section class="arriving-bus">
+				<div class="bus-time">4 min</div>
+				<span class="bus-line">5</span>
+				<span class="line-name">Firmiano</span>
+			</section>
+			<section class="arriving-bus">
+				<span class="bus-time">6 min</span>
+				<span class="bus-line">10A</span>
+				<span class="line-name">Stazione</span>
+			</section>
+			<section class="arriving-bus">
+				<span class="bus-time">11 min</span>
+				<span class="bus-line">1</span>
+				<span class="line-name">Stazione</span>
+			</section>
+		</section>
+		<section class="view menu">
+		</section>
+	</section>
+	
+	<div class="map-application" onClick="showDetails()">
+		<div id="map" class="map"></div>
+	</div>
+
+	<!-- build:js scripts/vendor.js -->
+	<script src="lib/scripts/leaflet.js"></script>
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+
+	<!-- endbower -->
+	<!-- endbuild -->
+	<script src="bower_components/Velocity.js/jquery.velocity.min.js"></script>
+
+	<!-- build:js scripts/main.js -->
+	<script src="scripts/main.js"></script>
+	<!-- endbuild -->
+</body>
+
+</html>
