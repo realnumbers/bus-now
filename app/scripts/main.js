@@ -3,6 +3,7 @@
 
 //main stuff
 loadBusstopsList();
+var usedBusstops = new Object();
 var coord = new Array();
 coord = [46.4838, 11.336];
 (function (window, document, L, undefined) {
@@ -34,8 +35,11 @@ function showBusstopMap(L, map) {
     var coordBusstop = new Array();
     coordBusstop[0] = parseFloat(busstopList[lang][i].x);
     coordBusstop[1] = parseFloat(busstopList[lang][i].y);
-    var text = busstopList[lang][i].name;
-    L.circleMarker(coordBusstop, {busID : "hello", opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).on('click', onBusstopClick);
+    var id = busstopList[lang][i].id;
+    //red #ff0101
+    //blue #318eff
+    L.circleMarker(coordBusstop, {opacity : 1, color: "#ff0101", fillOpacity : 1, title : id}).addTo(map).on('click', onBusstopClick);
+    usedBusstops[id] = busstopList[lang][i];
    }
 }
 // return the busstop list as json witch is saved in the localStorage
@@ -44,8 +48,10 @@ function getBusstopList() {
 }
 
 function onBusstopClick(el) {
- console.log("Selected Destination");
- console.log(el);
+  console.log("Selected Destination");
+  console.log(el);
+  var id = el.target.options.title;
+  alert(usedBusstops[id].name);
 }
 
 function UILang() {
