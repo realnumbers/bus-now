@@ -27,12 +27,12 @@
 
 <body>
 	
-	<header class="header-bar above-map" onClick="hideDetails()">
+	<header class="header-bar above-map" onClick="">
 		<section class="">
 			<img class="btn menu-btn" src="images/menu.svg" onClick="showMenu()">
 			<img class="btn cancel-btn" src="images/cancel.svg" onClick="cancelQuery()">
 		</section>
-		<section class="top-msg"> Tap anywhere on the map to set your <span class="highlited red">destination</span>. </section>
+		<section class="top-msg"> Tap anywhere on the map to set your <span class="red">destination</span>. </section>
 	</header>
 	
 	<div class="map-application">
@@ -47,7 +47,7 @@
 	<!-- endbower -->
 	<!-- endbuild -->
 	<script src="bower_components/Velocity.js/jquery.velocity.min.js"></script>
-
+	<script src="scripts/layout.js"></script>
 	<!-- build:js scripts/main.js -->
 	<script src="scripts/main.js"></script>
 	<!-- endbuild -->

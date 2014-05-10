@@ -35,3 +35,48 @@
   L.marker([46.4838, 11.336]).addTo(map).bindPopup("I am a green leaf.");
 
 }(window, document, L));
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+function hideMsg() {
+	console.log("hide msg")
+	$(".top-msg").velocity({
+		translateY: -10em;
+		opacity: 0,
+	});
+}
+
+*/
+
+/*
+function hideMsg() {
+	console.log("hide msg")
+	$(".ui").velocity({
+		scaleX: 1,
+		scaleY: 1,
+		opacity: 1,
+	});
+	$(".map-application").velocity({
+		opacity: 0.5,
+	});
+	$(".menu-btn").velocity({
+		colorRed: 255,
+		colorBlue: 255,
+		colorGreen: 255,
+	}, {
+		complete: function () {
+			$(".header-bar").removeClass("hidden").addClass("visible");
+		}
+	});
+}
+*/
