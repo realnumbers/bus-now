@@ -27,8 +27,12 @@
 
 <body>
 	
-	<header class="header-bar above-map hidden" onClick="hideDetails()">
-		<div class="menu-btn" onClick="showMenu()";> &#9776; </div>
+	<header class="header-bar above-map" onClick="hideDetails()">
+		<section class="btn-bar">
+			<div class="btn menu-btn" onClick="showMenu()";> &#9776; </div>
+			<div class="btn cancel-btn" onClick="cancelQuery()";> X </div>
+		</section>
+		<section class="top-msg"> Tap anywhere on the map to set your <strong class="highlited red">destination</strong> </section>
 	</header>
 	
 	<div class="map-application">
@@ -50,3 +54,4 @@
 </body>
 
 </html>
+<

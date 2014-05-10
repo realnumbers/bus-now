@@ -13,6 +13,7 @@
 }
 body,
 html {
+	font-size: 20px;
 	font-family: Arial, sans-serif;
 	height: 100%;
 }
@@ -45,16 +46,29 @@ body {
 /* HEADER */
 
 .header-bar {
-	height: 3em;
 	width: 100%;
-	/*background-color: rgba(0, 0, 0, 0.3);*/
+	padding: 1em;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
 }
-.menu-btn {
-	float: right;
+.btn {
 	margin-right: 0.5rem;
 	visibility: visible;
 	font-size: 2em;
 	cursor: pointer;
+}
+.menu-btn {
+	float: right;	
+}
+.cancel-btn {
+	float: left;
+}
+.btn-bar {
+}
+.top-msg {
+	clear: both;
+	padding-top: 0.2em;
+	font-style: italic;
 }
 .hidden {
 	visibility: hidden;
@@ -62,6 +76,10 @@ body {
 .visible {
 	visibility: visible;
 }
+.red {
+	color: #f31744;
+}
+
 /* DETAILS */
 
 .details {}
