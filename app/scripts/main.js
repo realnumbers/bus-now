@@ -30,30 +30,13 @@ function showBusstopMap(L, map) {
   var i = 0;
   var lang = UILang();
   var busstopList = getBusstopList();
-  var offset = 0.004;
-  var loadAll = true;
-  var preOffset = 0;
-  while (loadAll) {
   for (i = 0; i < busstopList[lang].length; i++) {
     var coordBusstop = new Array();
     coordBusstop[0] = parseFloat(busstopList[lang][i].x);
     coordBusstop[1] = parseFloat(busstopList[lang][i].y);
     var text = busstopList[lang][i].name;
-    if (coord[0] + offset > coordBusstop[0] && coord[1] + offset > coordBusstop[1] && coord[0] - offset < coordBusstop[0] && coord[1] - offset < coordBusstop[1])
-      if (!(coord[0] + (preOffset)  > coordBusstop[0] && coord[1] + (preOffset) > coordBusstop[1] && coord[0] - (preOffset)  < coordBusstop[0] && coord[1] - (preOffset) < coordBusstop[1]))
-        L.circleMarker(coordBusstop, {opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).bindPopup(text);
+    L.circleMarker(coordBusstop, {opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).bindPopup(text);
    }
-  preOffset = offset;
-  if (offset > (0.004 * 2)) {
-    if (offset != 1000)
-      offset = 1000;
-    else
-      loadAll = false;
-  }
-  else
-    offset *= 2;
-  }
-
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
