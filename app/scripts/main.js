@@ -35,12 +35,17 @@ function showBusstopMap(L, map) {
     coordBusstop[0] = parseFloat(busstopList[lang][i].x);
     coordBusstop[1] = parseFloat(busstopList[lang][i].y);
     var text = busstopList[lang][i].name;
-    L.circleMarker(coordBusstop, {opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).bindPopup(text);
+    L.circleMarker(coordBusstop, {busID : "hello", opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).on('click', onBusstopClick);
    }
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
   return JSON.parse(localStorage.busstops);
+}
+
+function onBusstopClick(el) {
+ console.log("Selected Destination");
+ console.log(el);
 }
 
 function UILang() {
@@ -78,3 +83,25 @@ function loadBusstopsList() {
   }
 }
 
+/*
+function hideMsg() {
+	console.log("hide msg")
+	$(".ui").velocity({
+		scaleX: 1,
+		scaleY: 1,
+		opacity: 1,
+	});
+	$(".map-application").velocity({
+		opacity: 0.5,
+	});
+	$(".menu-btn").velocity({
+		colorRed: 255,
+		colorBlue: 255,
+		colorGreen: 255,
+	}, {
+		complete: function () {
+			$(".header-bar").removeClass("hidden").addClass("visible");
+		}
+	});
+}
+*/
