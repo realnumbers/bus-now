@@ -17,7 +17,7 @@ coord = [46.4838, 11.336];
 
 	/* add default stamen tile layer */
 	L.tileLayer('http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png', {
-		minZoom: 0,
+		minZoom: 12,
 		maxZoom: 18,
 		attribution: 'Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
 	}).addTo(map);
@@ -27,22 +27,33 @@ coord = [46.4838, 11.336];
 }(window, document, L));
 
 function showBusstopMap(L, map) {
-  var iconImg = L.icon({
-     iconUrl: 'data/img/icon.png',
-     iconSize:     [38, 95], // size of the icon
-     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  });
   var i = 0;
-  for (i = 0; i < getBusstopList()[UILang()].length; i++) {
-  //for (i = 400; i < 450; i++) {
+  var lang = UILang();
+  var busstopList = getBusstopList();
+  var offset = 0.004;
+  var loadAll = true;
+  var preOffset = 0;
+  while (loadAll) {
+  for (i = 0; i < busstopList[lang].length; i++) {
     var coordBusstop = new Array();
-    coordBusstop[0] = parseFloat(getBusstopList()[UILang()][i].x);
-    coordBusstop[1] = parseFloat(getBusstopList()[UILang()][i].y);
-    var text = getBusstopList()[UILang()][i].name;
-    if (coord[0] + 0.004  > coordBusstop[0] && coord[1] + 0.004 > coordBusstop[1] && coord[0] - 0.004  < coordBusstop[0] && coord[1] - 0.004 < coordBusstop[1])
+    coordBusstop[0] = parseFloat(busstopList[lang][i].x);
+    coordBusstop[1] = parseFloat(busstopList[lang][i].y);
+    var text = busstopList[lang][i].name;
+    if (coord[0] + offset > coordBusstop[0] && coord[1] + offset > coordBusstop[1] && coord[0] - offset < coordBusstop[0] && coord[1] - offset < coordBusstop[1])
+      if (!(coord[0] + (preOffset)  > coordBusstop[0] && coord[1] + (preOffset) > coordBusstop[1] && coord[0] - (preOffset)  < coordBusstop[0] && coord[1] - (preOffset) < coordBusstop[1]))
         L.circleMarker(coordBusstop, {opacity : 1, color: "#000", fillOpacity : 1}).addTo(map).bindPopup(text);
    }
+  preOffset = offset;
+  if (offset > (0.004 * 2)) {
+    if (offset != 1000)
+      offset = 1000;
+    else
+      loadAll = false;
+  }
+  else
+    offset *= 2;
+  }
+
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
@@ -55,7 +66,7 @@ function UILang() {
  return "it";
 }
 
-function currentPosition(L, map) {
+/*function currentPosition(L, map) {
   if (!navigator.geolocation){
     error();
   }
@@ -74,6 +85,7 @@ function currentPosition(L, map) {
   }
   return coord;
 }
+*/
 
 function loadBusstopsList() {
   if (!localStorage.busstops){
