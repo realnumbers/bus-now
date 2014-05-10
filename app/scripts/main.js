@@ -27,10 +27,12 @@ coord = [46.4838, 11.336];
   //currentPosition(L, map);
 }(window, document, L));
 
-function showBusstopMap(L, map) {
+function showBusstopMap(L, map, slide) {
   var i = 0;
   var lang = UILang();
   var busstopList = getBusstopList();
+  var markerGroup = new L.LayerGroup().addTo(map);
+  var markerColor = (slide == "arr") ? "#318eff" : "#ff0101";
   for (i = 0; i < busstopList[lang].length; i++) {
     var coordBusstop = new Array();
     coordBusstop[0] = parseFloat(busstopList[lang][i].x);
@@ -38,22 +40,33 @@ function showBusstopMap(L, map) {
     var id = busstopList[lang][i].id;
     //red #ff0101
     //blue #318eff
-    L.circleMarker(coordBusstop, {opacity : 1, color: "#ff0101", fillOpacity : 1, title : id}).addTo(map).on('click', onBusstopClick);
+    L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClick);
     usedBusstops[id] = busstopList[lang][i];
    }
+
+  function onBusstopClick(el) {
+    console.log("Selected Destination");
+    console.log(el);
+    var id = el.target.options.title;
+    alert(usedBusstops[id].name);
+    switchToArr();
+  }
+
+  function switchToArr() {
+    $("#msg-des").hide();
+    $("#msg-arr").show();
+    markerGroup.clearLayers();   
+    showBusstopMap(L, map, "arr");
+  }
+}
+
+function checkLine() {
+  return true;
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
   return JSON.parse(localStorage.busstops);
 }
-
-function onBusstopClick(el) {
-  console.log("Selected Destination");
-  console.log(el);
-  var id = el.target.options.title;
-  alert(usedBusstops[id].name);
-}
-
 function UILang() {
  if (navigator.language.substr(0,2) == "de")
    return "de";
