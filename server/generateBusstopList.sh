@@ -47,7 +47,7 @@ gen_json_it(){
 parse(){
 	export IFS=";"
   first="true";
-	cat paline.csv | while read id name x_coord y_coord dummy line ;
+	cat paline.csv | while read id name y_coord x_coord dummy line ;
 	do 
 		split_name
 		split_city
@@ -63,7 +63,7 @@ parse(){
 	done
 }
 
-TARGET=../data/busstops.json
+TARGET=../app/data/busstops.json
 rm $TARGET 
 parse
 echo "{
