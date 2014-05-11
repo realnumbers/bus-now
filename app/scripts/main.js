@@ -159,7 +159,7 @@ function parseData(data, id) {
   console.log(data);
   var depTime = new Array();
 	$("#popup").empty();
-	$("<h2 class='station-title' id='popup-title'> <span class='blue'>" + getBusstopById(id).name + "</span> -> <span class='red'>" + arrival + "</span></h2>").appendTo("#popup");
+	$("<h2 class='station-title' id='popup-title'> <span class='blue'>" + getBusstopById(id).name + "</span> → <span class='red'>" + arrival + "</span></h2>").appendTo("#popup");
   for (var i = 0; i < data.busTripStops.length; i++) {
     for (var j = 0; j < data.busTripStops[i].busTrip.busTripStop.length; j++) {
       if (id == (":" + data.busTripStops[i].busTrip.busTripStop[j].busStopId + ":")) {
@@ -244,6 +244,8 @@ function blurForeground() {
 	$(".about").addClass("hidden");
 	$(".darken").addClass("hidden");
 	$(".popup").addClass("hidden");
+	$(".header-bar").css("background-color", "rgba(0, 0, 0, 0.8)");
+	$("#popup").empty();
 }
 
 // Eliminates 300ms click delay on mobile 

@@ -157,13 +157,10 @@ body {
 .station-title {
 	margin-bottom: 0.5em;
 	font-size: 1.3em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 }
 .bus-time {
 	display: inline-block;
-	width: 7em;
+	width: 9em;
 	font-size: 1.1em;
 	font-weight: 600;
 }
