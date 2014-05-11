@@ -161,14 +161,16 @@ function parseData(data, id) {
   for (var i = 0; i < data.busTripStops.length; i++) {
     for (var j = 0; j < data.busTripStops[i].busTrip.busTripStop.length; j++) {
       if (id == (":" + data.busTripStops[i].busTrip.busTripStop[j].busStopId + ":")) {
-        console.log("Found");
-        depTime[i] = data.busTripStops[i].busTrip.busTripStop[j].timeHHMMSS;
+        var  tmpTime = data.busTripStops[i].busTrip.busTripStop[j].timeHHMMSS.toString();
+        tmpTime = (tmpTime.length < 6) ? "0" + tmpTime : tmpTime;
+        tmpTime = moment(tmpTime, "hhmmss").endOf().fromNow();
+        var line = data.busTripStops[i].busTrip.busLineId;
+        var text = $("#test").text();
+        $("#test").text(text + " Line: " + line + ": " + tmpTime );
       }
     }
   }
 
-  //$("#des").text(des);
-  //$("#arr").text(arr);
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
