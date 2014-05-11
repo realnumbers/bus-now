@@ -113,8 +113,8 @@ body {
 .about {
 	position: absolute;
 	top: 0;
-	padding: 0.5em 1em 1em;
-	margin: 2em 6%;
+	padding: 1em 1.7em 1.7em;
+	margin: 3.5em 6%;
 	background-color: rgba(0, 0, 0, 0.89);
 	color: #fff;
 	z-index: 100000;
