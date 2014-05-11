@@ -159,8 +159,9 @@ function parseData(data, id) {
         var  tmpTime = data.busTripStops[i].busTrip.busTripStop[j].timeHHMMSS.toString();
         tmpTime = (tmpTime.length < 6) ? "0" + tmpTime : tmpTime;
         tmpTime = moment(tmpTime, "hhmmss").endOf().fromNow();
+        var line = data.busTripStops[i].busTrip.busLineId;
         var text = $("#test").text();
-        $("#test").text(text + "<div>" + tmpTime + "</div>");
+        $("#test").text(text + " Line: " + line + ": " + tmpTime );
       }
     }
   }
