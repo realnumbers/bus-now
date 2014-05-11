@@ -67,7 +67,7 @@ body {
 }
 .top-msg {
 	clear: both;
-	margin: 2.4em 0 0.2em 0.3em;
+	margin: 0.2em 0 0.2em 0.3em;
 	font-size: 1em;
 	font-style: italic;
 }
@@ -83,6 +83,22 @@ body {
 .blue {
 	color: #318eff;
 }
+.zero {
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	transition: all 0.3s;
+}
+.left {
+	-webkit-transform: translateX(-300%);
+	transform: translateX(-300%);
+	transition: all 0.3s;
+}
+.right {
+	-webkit-transform: translateX(300%);
+	transform: translateX(300%);
+	transition: all 0.3s;
+}
+
 
 /* ABOUT */
 .darken {
@@ -146,4 +162,8 @@ body {
 
 .leaflet-control, .leaflet-control-attribution {
 	display: none;
+}
+
+#msg-arr {
+	margin-top: -2.95em;
 }

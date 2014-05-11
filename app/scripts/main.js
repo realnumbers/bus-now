@@ -24,8 +24,8 @@ coord = [46.4838, 11.336];
 		attribution: 'Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
 	}).addTo(map);
 
-  showBusstopMap(L, map);
-  //currentPosition(L, map);
+	showBusstopMap(L, map);
+	//currentPosition(L, map);
 }(window, document, L));
 
 function showBusstopMap(L, map, slide) {
@@ -55,19 +55,23 @@ function showBusstopMap(L, map, slide) {
     //alert(usedBusstops[id].name);
     switchToArr();
   }
-
-  function switchToArr() {
-    $("#msg-des").hide();
-    $("#msg-arr").show();
-    markerGroup.clearLayers();   
-    showBusstopMap(L, map, "arr");
-  }
   
-  function onBusstopClickArr(el) {
-    var id = el.target.options.title;
-    console.log(id);
-    getDepBusstop(id);
-  }
+	function onBusstopClickArr(el) {
+		console.log("Selected Destination");
+		console.log(el);
+		var id = el.target.options.title;
+		//alert(usedBusstops[id].name);
+		switchToArr();
+	}
+
+	function switchToArr() {
+		/*$("#msg-des").hide();
+		$("#msg-arr").show();*/
+		hideDesMsg();
+		showArrMsg();
+		markerGroup.clearLayers();
+		showBusstopMap(L, map, "arr");
+	}
 }
 function matchBusstop(id) {
   var lang = UILang();
@@ -95,7 +99,7 @@ function matchBusstop(id) {
 
 
 function checkLine() {
-  return true;
+	return true;
 }
 function getDepBusstop(id, L, M) {
   //http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId=:5142:&yyyymmddhhmm=201309160911&callback=function123
@@ -121,15 +125,16 @@ function parseData(data) {
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
-  return JSON.parse(localStorage.busstops);
+	return JSON.parse(localStorage.busstops);
 }
 function getBusstopPair() {
   return JSON.parse(localStorage.busstopsPair);
 }
+
 function UILang() {
- if (navigator.language.substr(0,2) == "de")
-   return "de";
- return "it";
+	if (navigator.language.substr(0, 2) == "de")
+		return "de";
+	return "it";
 }
 
 /*function currentPosition(L, map) {
@@ -154,11 +159,21 @@ function UILang() {
 */
 
 function loadBusstopsList() {
-  if (!localStorage.busstops){
-  $.getJSON( "data/busstops.json", function(data) {
-    localStorage.setItem('busstops', JSON.stringify(data));
-  });
-  }
+	if (!localStorage.busstops) {
+		$.getJSON("data/busstops.json", function (data) {
+			localStorage.setItem('busstops', JSON.stringify(data));
+		});
+	}
+}
+
+function hideDesMsg() {
+	console.log("hide des");
+	$("#msg-des").removeClass("zero").addClass("left");
+	//showArrMsg();
+}
+function showArrMsg() {
+	console.log("show arr")
+	$("#msg-arr").removeClass("right").addClass("zero");
 }
 function loadBusstopsListPair() {
   if (!localStorage.busstopsPair){
@@ -188,5 +203,4 @@ function hideMsg() {
 			$(".header-bar").removeClass("hidden").addClass("visible");
 		}
 	});
-}
-*/
+}*/
