@@ -4,7 +4,6 @@
 //main stuff
 loadBusstopsList();
 loadBusstopsListPair(); 
-var usedBusstops = new Object();
 var coord = new Array();
 var arrival;
 coord = [46.4838, 11.336];
@@ -39,14 +38,12 @@ function showBusstopMap(slide) {
     //red #ff0101
     //blue #318eff
     L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
-    usedBusstops[id] = busstopList[lang][i];
    }
 }
   function onBusstopClickArr(el) {
     console.log("Selected Destination");
     console.log(el);
     var id = el.target.options.title;
-    //alert(usedBusstops[id].name);
     switchToDep(id);
   }
   
@@ -54,7 +51,6 @@ function showBusstopMap(slide) {
 		console.log("Selected Arr");
 		console.log(el);
 		var id = el.target.options.title;
-		//alert(usedBusstops[id].name);
 		$(".top-msg").hide();
 		$(".header-bar").css("background-color", "rgba(255, 255, 255, 0)");
 		$(".darken").removeClass("hidden");
@@ -242,6 +238,9 @@ function blurForeground() {
 	$(".popup").addClass("hidden");
 }
 
+function cancelQuery() {
+  window.location.reload();
+}
 // Eliminates 300ms click delay on mobile 
 function removeClickDelay() {
 	window.addEventListener('load', function() {
@@ -270,3 +269,4 @@ function hideMsg() {
 		}
 	});
 }*/
+
