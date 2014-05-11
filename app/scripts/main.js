@@ -38,13 +38,11 @@ function showBusstopMap(L, map, slide) {
     var coordBusstop = new Array();
     coordBusstop[0] = parseFloat(busstopList[lang][i].x);
     coordBusstop[1] = parseFloat(busstopList[lang][i].y);
+    var thisLine = busstopList[lang][i].line;
     var id = busstopList[lang][i].id;
     //red #ff0101
     //blue #318eff
-    if (slide == "arr") 
-      L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
-    else
-        L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickDep);
+    L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickDep);
     usedBusstops[id] = busstopList[lang][i];
    }
 
@@ -53,46 +51,74 @@ function showBusstopMap(L, map, slide) {
     console.log(el);
     var id = el.target.options.title;
     //alert(usedBusstops[id].name);
-    switchToArr();
+    switchToArr(id);
   }
   
 	function onBusstopClickArr(el) {
-		console.log("Selected Destination");
+		console.log("Selected Arr");
 		console.log(el);
 		var id = el.target.options.title;
 		//alert(usedBusstops[id].name);
-		switchToArr();
+    getDepBusstop(id);
 	}
 
-	function switchToArr() {
-		/*$("#msg-des").hide();
-		$("#msg-arr").show();*/
+	function switchToArr(id) {
 		hideDesMsg();
 		showArrMsg();
 		markerGroup.clearLayers();
-		showBusstopMap(L, map, "arr");
+		showLine(L, map, id);
 	}
 }
+function showLine(L, map, id) {
+  var markerGroup2 = new L.LayerGroup().addTo(map);
+  var markerColor = "#318eff";
+  var busstopList = getBusstopList()[UILang()];
+  var el = getBusstopById(id);
+  var coordBusstop = new Array ();
+  for ( var i = 0; i < el.line.length; i++ ) {
+    for ( var j = 0; j < busstopList.length; j++) {
+      for ( var k = 0; k < busstopList[j].line.length; k++) {
+        if ( el.line[i] == busstopList[j].line[k] ) {
+          coordBusstop[0] = parseFloat(busstopList[j].x);
+          coordBusstop[1] = parseFloat(busstopList[j].y);
+          console.log(el.line[i]);
+          console.log("Found");
+          //L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup2).bindPopup("Hallo").on('click', onBusstopClickArr);
+        }
+      }
+     }
+  }
+}
+
+function getBusstopById(id) {
+  var busstopList = getBusstopList()[UILang()];
+  var found = false; 
+  var i = 0;
+  while (found == false) {
+    if (busstopList[i].id == id)
+      found = true;
+    else
+      i++;
+  }
+  return busstopList[i];
+}
+  
 function matchBusstop(id) {
   var lang = UILang();
   var pair = getBusstopPair()[lang]; 
   var busstops = getBusstopList()[lang]; 
   var j;
   var found = false;
-  for (var i = 0; i < busstops.length; i++) {
-    if ( busstops[i].id == id ) {
     j = 0;
     found = false;
     while (found == false && j < pair.length) {
       var tmp = pair[j].id.split(":");
-      if (busstops[j].id == tmp[1] || busstops[j].id == tmp[2]) {
+      if (id == (":" + tmp[1] + ":") || id == (":" + tmp[2] + ":")) {
         found = true;
         console.log("found match");
         id = pair[j].id;
       }
       j++;
-    }
-    }
   }
   return id;
 }
@@ -101,7 +127,8 @@ function matchBusstop(id) {
 function checkLine() {
 	return true;
 }
-function getDepBusstop(id, L, M) {
+
+function getDepBusstop(id) {
   //http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId=:5142:&yyyymmddhhmm=201309160911&callback=function123
   id = matchBusstop(id);
   var time = moment().format('YYYYMMDDhhmm');
