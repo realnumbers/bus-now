@@ -68,21 +68,23 @@ function showLine(id) {
   var busstopList = getBusstopList()[UILang()];
   var el = getBusstopById(id);
   var coordBusstop = new Array ();
+  var depName;
+  var arrName = el.name;
   for ( var i = 0; i < el.line.length; i++ ) {
     for ( var j = 0; j < busstopList.length; j++) {
       for ( var k = 0; k < busstopList[j].line.length; k++) {
         if ( el.line[i] == busstopList[j].line[k] ) {
           coordBusstop[0] = parseFloat(busstopList[j].x);
           coordBusstop[1] = parseFloat(busstopList[j].y);
-          console.log(el.line[i]);
-          console.log("Found");
+          depName = busstopList[j].name;
           if (busstopList[j].id == id) {
             markerColor = "#ff0101";
             L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
           }
           else {
             markerColor = "#318eff";
-            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
+            var string = '<div style="color : red;" id="test">' + depName + ' -> ' + arrName + '</div>';
+            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup(string).on('click', onBusstopClickArr);
           }
 
         }
@@ -131,16 +133,16 @@ function checkLine() {
 
 function getDepBusstop(id) {
   //http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId=:5142:&yyyymmddhhmm=201309160911&callback=function123
-  id = matchBusstop(id);
+  var idPair = matchBusstop(id);
   var time = moment().format('YYYYMMDDhhmm');
-  time = "201405110810";
-  var urlAPI = "http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId="+ id + "&yyyymmddhhmm=" + time;
+  time = "201405130810";
+  var urlAPI = "http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId="+ idPair + "&yyyymmddhhmm=" + time;
   $.ajax({
         url: urlAPI,
         dataType: 'jsonp',
         success: function( data ) {
           console.log("success");
-          parseData(data);
+          parseData(data, id);
             },
         error: function( data ) {
         console.log("Error");
@@ -148,8 +150,20 @@ function getDepBusstop(id) {
     });
 
 }
-function parseData(data) {
+function parseData(data, id) {
   console.log(data);
+  var depTime = new Array();
+  for (var i = 0; i < data.busTripStops.length; i++) {
+    for (var j = 0; j < data.busTripStops[i].busTrip.busTripStop.length; j++) {
+      if (id == (":" + data.busTripStops[i].busTrip.busTripStop[j].busStopId + ":")) {
+        console.log("Found");
+        depTime[i] = data.busTripStops[i].busTrip.busTripStop[j].timeHHMMSS;
+      }
+    }
+  }
+
+  //$("#des").text(des);
+  //$("#arr").text(arr);
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
