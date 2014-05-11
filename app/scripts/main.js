@@ -206,6 +206,7 @@ function loadBusstopsList() {
 	if (!localStorage.busstops) {
 		$.getJSON("data/busstops.json", function (data) {
 			localStorage.setItem('busstops', JSON.stringify(data));
+      window.location.reload();
 		});
 	}
 }
