@@ -3,6 +3,7 @@
 
 //main stuff
 loadBusstopsList();
+loadBusstopsListPair(); 
 var usedBusstops = new Object();
 var coord = new Array();
 coord = [46.4838, 11.336];
@@ -40,15 +41,18 @@ function showBusstopMap(L, map, slide) {
     var id = busstopList[lang][i].id;
     //red #ff0101
     //blue #318eff
-    L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClick);
+    if (slide == "arr") 
+      L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
+    else
+        L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickDep);
     usedBusstops[id] = busstopList[lang][i];
    }
 
-  function onBusstopClick(el) {
+  function onBusstopClickDep(el) {
     console.log("Selected Destination");
     console.log(el);
     var id = el.target.options.title;
-    alert(usedBusstops[id].name);
+    //alert(usedBusstops[id].name);
     switchToArr();
   }
 
@@ -58,14 +62,69 @@ function showBusstopMap(L, map, slide) {
     markerGroup.clearLayers();   
     showBusstopMap(L, map, "arr");
   }
+  
+  function onBusstopClickArr(el) {
+    var id = el.target.options.title;
+    console.log(id);
+    getDepBusstop(id);
+  }
 }
+function matchBusstop(id) {
+  var lang = UILang();
+  var pair = getBusstopPair()[lang]; 
+  var busstops = getBusstopList()[lang]; 
+  var j;
+  var found = false;
+  for (var i = 0; i < busstops.length; i++) {
+    if ( busstops[i].id == id ) {
+    j = 0;
+    found = false;
+    while (found == false && j < pair.length) {
+      var tmp = pair[j].id.split(":");
+      if (busstops[j].id == tmp[1] || busstops[j].id == tmp[2]) {
+        found = true;
+        console.log("found match");
+        id = pair[j].id;
+      }
+      j++;
+    }
+    }
+  }
+  return id;
+}
+
 
 function checkLine() {
   return true;
 }
+function getDepBusstop(id, L, M) {
+  //http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId=:5142:&yyyymmddhhmm=201309160911&callback=function123
+  id = matchBusstop(id);
+  var time = moment().format('YYYYMMDDhhmm');
+  time = "201405110810";
+  var urlAPI = "http://html5.sasabus.org/backend/sasabusdb/findBusStationDepartures?busStationId="+ id + "&yyyymmddhhmm=" + time;
+  $.ajax({
+        url: urlAPI,
+        dataType: 'jsonp',
+        success: function( data ) {
+          console.log("success");
+          parseData(data);
+            },
+        error: function( data ) {
+        console.log("Error");
+        }
+    });
+
+}
+function parseData(data) {
+  console.log(data);
+}
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
   return JSON.parse(localStorage.busstops);
+}
+function getBusstopPair() {
+  return JSON.parse(localStorage.busstopsPair);
 }
 function UILang() {
  if (navigator.language.substr(0,2) == "de")
@@ -98,6 +157,13 @@ function loadBusstopsList() {
   if (!localStorage.busstops){
   $.getJSON( "data/busstops.json", function(data) {
     localStorage.setItem('busstops', JSON.stringify(data));
+  });
+  }
+}
+function loadBusstopsListPair() {
+  if (!localStorage.busstopsPair){
+  $.getJSON( "data/busstops_pair.json", function(data) {
+    localStorage.setItem('busstopsPair', JSON.stringify(data));
   });
   }
 }
