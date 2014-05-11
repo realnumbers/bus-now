@@ -7,6 +7,7 @@ loadBusstopsListPair();
 var usedBusstops = new Object();
 var coord = new Array();
 coord = [46.4838, 11.336];
+currentPosition();
 	// TIS: 46.4838, 11.336
 	/* create leaflet map */
 	var map = L.map('map', {
@@ -22,7 +23,6 @@ coord = [46.4838, 11.336];
 	}).addTo(map);
   var markerGroup = new L.LayerGroup().addTo(map);
 	showBusstopMap();
-	//currentPosition(L, map);
 
 function showBusstopMap(slide) {
   var i = 0;
@@ -181,7 +181,7 @@ function UILang() {
 	return "it";
 }
 
-/*function currentPosition(L, map) {
+function currentPosition() {
   if (!navigator.geolocation){
     error();
   }
@@ -189,18 +189,14 @@ function UILang() {
     function success(position) {
       coord[0] = position.coords.latitude;
       coord[1] = position.coords.longitude;
-      map.panTo(new L.LatLng(coord[0], coord[1]));
     };
     function error() {
-      coord = [46.4838, 11.336];
       console.log("Unable to retrieve your location, use default position");
     };
 
     navigator.geolocation.getCurrentPosition(success, error);
   }
-  return coord;
 }
-*/
 
 function loadBusstopsList() {
 	if (!localStorage.busstops) {
