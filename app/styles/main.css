@@ -160,14 +160,18 @@ body {
 	margin-right: 0.2em;
 }
 
-
 .line-name {}
+
+
 /* HACKS */
 
 .leaflet-control, .leaflet-control-attribution {
 	display: none;
 }
-
 #msg-arr {
 	margin-top: -2.95em;
+}
+* {
+	box-shadow: none !important;
+	border-radius: 0 !important;
 }

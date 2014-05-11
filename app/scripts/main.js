@@ -236,6 +236,13 @@ function blurForeground() {
 	$(".darken").addClass("hidden");
 }
 
+// Eliminates 300ms click delay on mobile 
+function removeClickDelay() {
+	window.addEventListener('load', function() {
+			new FastClick(document.body);
+			}, false);
+}
+
 /*
 function hideMsg() {
 	console.log("hide msg")
