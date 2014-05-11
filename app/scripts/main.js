@@ -4,10 +4,10 @@
 //main stuff
 loadBusstopsList();
 loadBusstopsListPair(); 
-var usedBusstops = new Object();
 var coord = new Array();
 var arrival;
 coord = [46.4838, 11.336];
+currentPosition();
 	// TIS: 46.4838, 11.336
 	/* create leaflet map */
 	var map = L.map('map', {
@@ -23,7 +23,6 @@ coord = [46.4838, 11.336];
 	}).addTo(map);
   var markerGroup = new L.LayerGroup().addTo(map);
 	showBusstopMap();
-	//currentPosition(L, map);
 
 function showBusstopMap(slide) {
   var i = 0;
@@ -39,14 +38,12 @@ function showBusstopMap(slide) {
     //red #ff0101
     //blue #318eff
     L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
-    usedBusstops[id] = busstopList[lang][i];
    }
 }
   function onBusstopClickArr(el) {
     console.log("Selected Destination");
     console.log(el);
     var id = el.target.options.title;
-    //alert(usedBusstops[id].name);
     switchToDep(id);
   }
   
@@ -54,7 +51,6 @@ function showBusstopMap(slide) {
 		console.log("Selected Arr");
 		console.log(el);
 		var id = el.target.options.title;
-		//alert(usedBusstops[id].name);
 		$(".top-msg").hide();
 		$(".header-bar").css("background-color", "rgba(255, 255, 255, 0)");
 		$(".darken").removeClass("hidden");
@@ -189,7 +185,7 @@ function UILang() {
 	return "it";
 }
 
-/*function currentPosition(L, map) {
+function currentPosition() {
   if (!navigator.geolocation){
     error();
   }
@@ -197,18 +193,14 @@ function UILang() {
     function success(position) {
       coord[0] = position.coords.latitude;
       coord[1] = position.coords.longitude;
-      map.panTo(new L.LatLng(coord[0], coord[1]));
     };
     function error() {
-      coord = [46.4838, 11.336];
       console.log("Unable to retrieve your location, use default position");
     };
 
     navigator.geolocation.getCurrentPosition(success, error);
   }
-  return coord;
 }
-*/
 
 function loadBusstopsList() {
 	if (!localStorage.busstops) {
@@ -248,6 +240,9 @@ function blurForeground() {
 	$("#popup").empty();
 }
 
+function cancelQuery() {
+  window.location.reload();
+}
 // Eliminates 300ms click delay on mobile 
 function removeClickDelay() {
 	window.addEventListener('load', function() {
@@ -276,3 +271,4 @@ function hideMsg() {
 		}
 	});
 }*/
+
