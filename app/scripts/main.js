@@ -7,9 +7,6 @@ loadBusstopsListPair();
 var usedBusstops = new Object();
 var coord = new Array();
 coord = [46.4838, 11.336];
-(function (window, document, L, undefined) {
-	'use strict';
-
 	// TIS: 46.4838, 11.336
 	/* create leaflet map */
 	var map = L.map('map', {
@@ -23,16 +20,14 @@ coord = [46.4838, 11.336];
 		maxZoom: 18,
 		attribution: 'Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
 	}).addTo(map);
-
-	showBusstopMap(L, map);
+  var markerGroup = new L.LayerGroup().addTo(map);
+	showBusstopMap();
 	//currentPosition(L, map);
-}(window, document, L));
 
-function showBusstopMap(L, map, slide) {
+function showBusstopMap(slide) {
   var i = 0;
   var lang = UILang();
   var busstopList = getBusstopList();
-  var markerGroup = new L.LayerGroup().addTo(map);
   var markerColor = (slide == "arr") ? "#318eff" : "#ff0101";
   for (i = 0; i < busstopList[lang].length; i++) {
     var coordBusstop = new Array();
@@ -45,7 +40,7 @@ function showBusstopMap(L, map, slide) {
     L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickDep);
     usedBusstops[id] = busstopList[lang][i];
    }
-
+}
   function onBusstopClickDep(el) {
     console.log("Selected Destination");
     console.log(el);
@@ -66,11 +61,9 @@ function showBusstopMap(L, map, slide) {
 		hideDesMsg();
 		showArrMsg();
 		markerGroup.clearLayers();
-		showLine(L, map, id);
+		showLine(id);
 	}
-}
-function showLine(L, map, id) {
-  var markerGroup2 = new L.LayerGroup().addTo(map);
+function showLine(id) {
   var markerColor = "#318eff";
   var busstopList = getBusstopList()[UILang()];
   var el = getBusstopById(id);
@@ -83,7 +76,7 @@ function showLine(L, map, id) {
           coordBusstop[1] = parseFloat(busstopList[j].y);
           console.log(el.line[i]);
           console.log("Found");
-          //L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup2).bindPopup("Hallo").on('click', onBusstopClickArr);
+          L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
         }
       }
      }
