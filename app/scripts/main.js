@@ -23,54 +23,60 @@ coord = [46.4838, 11.336];
 		attribution: 'Map data © <a href="http://www.openstreetmap.org">OpenStreetMap contributors</a>'
 	}).addTo(map);
 
-  showBusstopMap(L, map);
-  //currentPosition(L, map);
+	showBusstopMap(L, map);
+	//currentPosition(L, map);
 }(window, document, L));
 
 function showBusstopMap(L, map, slide) {
-  var i = 0;
-  var lang = UILang();
-  var busstopList = getBusstopList();
-  var markerGroup = new L.LayerGroup().addTo(map);
-  var markerColor = (slide == "arr") ? "#318eff" : "#ff0101";
-  for (i = 0; i < busstopList[lang].length; i++) {
-    var coordBusstop = new Array();
-    coordBusstop[0] = parseFloat(busstopList[lang][i].x);
-    coordBusstop[1] = parseFloat(busstopList[lang][i].y);
-    var id = busstopList[lang][i].id;
-    //red #ff0101
-    //blue #318eff
-    L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClick);
-    usedBusstops[id] = busstopList[lang][i];
-   }
+	var i = 0;
+	var lang = UILang();
+	var busstopList = getBusstopList();
+	var markerGroup = new L.LayerGroup().addTo(map);
+	var markerColor = (slide == "arr") ? "#318eff" : "#ff0101";
+	for (i = 0; i < busstopList[lang].length; i++) {
+		var coordBusstop = new Array();
+		coordBusstop[0] = parseFloat(busstopList[lang][i].x);
+		coordBusstop[1] = parseFloat(busstopList[lang][i].y);
+		var id = busstopList[lang][i].id;
+		//red #ff0101
+		//blue #318eff
+		L.circleMarker(coordBusstop, {
+			opacity: 1,
+			color: markerColor,
+			fillOpacity: 1,
+			title: id
+		}).addTo(markerGroup).on('click', onBusstopClick);
+		usedBusstops[id] = busstopList[lang][i];
+	}
 
-  function onBusstopClick(el) {
-    console.log("Selected Destination");
-    console.log(el);
-    var id = el.target.options.title;
-    alert(usedBusstops[id].name);
-    switchToArr();
-  }
+	function onBusstopClick(el) {
+		console.log("Selected Destination");
+		console.log(el);
+		var id = el.target.options.title;
+		alert(usedBusstops[id].name);
+		switchToArr();
+	}
 
-  function switchToArr() {
-    $("#msg-des").hide();
-    $("#msg-arr").show();
-    markerGroup.clearLayers();   
-    showBusstopMap(L, map, "arr");
-  }
+	function switchToArr() {
+		$("#msg-des").hide();
+		$("#msg-arr").show();
+		markerGroup.clearLayers();
+		showBusstopMap(L, map, "arr");
+	}
 }
 
 function checkLine() {
-  return true;
+	return true;
 }
 // return the busstop list as json witch is saved in the localStorage
 function getBusstopList() {
-  return JSON.parse(localStorage.busstops);
+	return JSON.parse(localStorage.busstops);
 }
+
 function UILang() {
- if (navigator.language.substr(0,2) == "de")
-   return "de";
- return "it";
+	if (navigator.language.substr(0, 2) == "de")
+		return "de";
+	return "it";
 }
 
 /*function currentPosition(L, map) {
@@ -95,11 +101,21 @@ function UILang() {
 */
 
 function loadBusstopsList() {
-  if (!localStorage.busstops){
-  $.getJSON( "data/busstops.json", function(data) {
-    localStorage.setItem('busstops', JSON.stringify(data));
-  });
-  }
+	if (!localStorage.busstops) {
+		$.getJSON("data/busstops.json", function (data) {
+			localStorage.setItem('busstops', JSON.stringify(data));
+		});
+	}
+}
+
+function hideDesMsg() {
+	console.log("hide des");
+	$("#msg-des").removeClass("zero").addClass("left");
+	showArrMsg();
+}
+function showArrMsg() {
+	console.log("show arr")
+	$("#msg-arr").removeClass("right").addClass("zero");
 }
 
 /*
@@ -122,5 +138,4 @@ function hideMsg() {
 			$(".header-bar").removeClass("hidden").addClass("visible");
 		}
 	});
-}
-*/
+}*/
