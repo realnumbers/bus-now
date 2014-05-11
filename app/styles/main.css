@@ -128,6 +128,10 @@ body {
 .about p {
 	font-size: 0.9em;
 }
+.about a {
+	text-decoration: none;
+	color: #318eff;
+}
 
 /* DETAILS */
 
