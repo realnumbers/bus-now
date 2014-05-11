@@ -225,6 +225,16 @@ function loadBusstopsListPair() {
   }
 }
 
+function showMenu() {
+	$(".about").removeClass("hidden");
+	$(".darken").removeClass("hidden");
+}
+
+function blurForeground() {
+	$(".about").addClass("hidden");
+	$(".darken").addClass("hidden");
+}
+
 /*
 function hideMsg() {
 	console.log("hide msg")

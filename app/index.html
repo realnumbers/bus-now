@@ -8,6 +8,14 @@
 
 <head>
 	<meta charset="UTF-8">
+	<!-- 
+	fastbus
+	quick
+	geobus
+	rocket
+	
+
+	-->
 	<title>busmap</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width">
@@ -40,17 +48,17 @@
 		<div id="map" class="map"></div>
 	</div>
 	
-	<div class="darken hidden">
-		<section class="about">
-			<h2 class="about-title">Bus Now</h2>
-			<h3>A minimalist bus application</h3>
-			<p>Made by <a href="http://juliansparber.com/">Julian Sparber</a> and <a href="http://tobiasbernard.com/">Tobias Bernard</a> for the 2014 AngelHack Bolzano Hackathon.</p>
-			<p>Map Data by <a href="http://www.openstreetmap.org/">Openstreetmap.org</a>.</p>
-			<p>Map Tiles by <a href="maps.stamen.com/toner">Stamen Design</a>.</p>
-			<p>Bus Data by <a href="http://sasabus.org/">SASAbus.org</a>.</p>
-			<p>This application is <a href="http://www.gnu.org/philosophy/free-sw">Free Software</a> and subject to the terms of the <a href="http://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License</a>. Get the code on <a href="https://github.com/realnumbers/bus-now">Github</a></p>
-		</section>
-	</div>
+	<section class="about hidden">
+		<h2 class="about-title">Bus Now</h2>
+		<h3>A bus application with minimal interaction</h3>
+		<p>Made by <a href="http://juliansparber.com/">Julian Sparber</a> and <a href="http://tobiasbernard.com/">Tobias Bernard</a> for the 2014 AngelHack Bolzano Hackathon.</p>
+		<p>Map Data by <a href="http://www.openstreetmap.org/">Openstreetmap.org</a>.</p>
+		<p>Map Tiles by <a href="http://maps.stamen.com/toner">Stamen Design</a>.</p>
+		<p>Bus Data by <a href="http://sasabus.org/">SASAbus.org</a>.</p>
+		<p>This application is <a href="http://www.gnu.org/philosophy/free-sw">Free Software</a> and subject to the terms of the <a href="http://www.gnu.org/licenses/agpl-3.0.html">GNU Affero General Public License</a>. Get the code on <a href="https://github.com/realnumbers/bus-now">Github</a></p>
+	</section>
+
+	<div class="darken hidden" onClick="blurForeground()">	</div>
 
 	<!-- build:js scripts/vendor.js -->
 	<script src="lib/scripts/leaflet.js"></script>
