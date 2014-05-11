@@ -6,7 +6,7 @@ loadBusstopsList();
 loadBusstopsListPair(); 
 var coord = new Array();
 var arrival;
-coord = [46.4838, 11.336];
+coord = [46.4928, 11.331];
 currentPosition();
 	// TIS: 46.4838, 11.336
 	/* create leaflet map */
@@ -37,7 +37,7 @@ function showBusstopMap(slide) {
     var id = busstopList[lang][i].id;
     //red #ff0101
     //blue #318eff
-    L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
+    L.circleMarker(coordBusstop, {opacity : 1, radius : 15, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
    }
 }
   function onBusstopClickArr(el) {
@@ -60,6 +60,7 @@ function showBusstopMap(slide) {
 	}
 
 	function switchToDep(id) {
+		$("#msg-arr").show(0);
 		hideDesMsg();
 		showArrMsg();
 		markerGroup.clearLayers();
@@ -80,12 +81,12 @@ function showLine(id) {
           if (busstopList[j].id == id) {
 						arrival = busstopList[j].name;
             markerColor = "#ff0101";
-            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
+            L.circleMarker(coordBusstop, {opacity : 1, radius : 20, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
           }
           else {
             markerColor = "#318eff";						
 						
-            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : busstopList[j].id}).addTo(markerGroup).on('click', onBusstopClickDep);
+            L.circleMarker(coordBusstop, {opacity : 1, radius : 15, color : markerColor, fillOpacity : 1, title : busstopList[j].id}).addTo(markerGroup).on('click', onBusstopClickDep);
           }
 
         }
@@ -228,8 +229,13 @@ function loadBusstopsListPair() {
 }
 
 function showMenu() {
-	$(".about").removeClass("hidden");
-	$(".darken").removeClass("hidden");
+	if (!$(".darken").hasClass("hidden")) {
+		blurForeground();
+	} else {
+		$(".about").removeClass("hidden");
+		$(".darken").removeClass("hidden");
+		$(".header-bar").css("background-color", "rgba(0, 0, 0, 0)");
+	}
 }
 
 function blurForeground() {
