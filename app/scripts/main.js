@@ -76,7 +76,15 @@ function showLine(id) {
           coordBusstop[1] = parseFloat(busstopList[j].y);
           console.log(el.line[i]);
           console.log("Found");
-          L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
+          if (busstopList[j].id == id) {
+            markerColor = "#ff0101";
+            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
+          }
+          else {
+            markerColor = "#318eff";
+            L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).bindPopup("Hallo").on('click', onBusstopClickArr);
+          }
+
         }
       }
      }
