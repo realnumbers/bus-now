@@ -37,6 +37,17 @@ function showBusstopMap(slide) {
     var id = busstopList[lang][i].id;
     //red #ff0101
     //blue #318eff
+    var max = new Object();
+    var min = new Object();
+    /*max.x = map._pathViewport.max.x + coord[0];
+    max.y = map._pathViewport.max.y + coord[1];
+    min.x = map._pathViewport.min.x + coord[0];
+    min.y = map._pathViewport.min.y + coord[1];*/
+    max.x = 0.02 + coord[0];
+    max.y = 0.02 + coord[1];
+    min.x = 0 - 0.02 + coord[0];
+    min.y = 0 - 0.02 + coord[1];
+    if (coordBusstop[0] < max.x && coordBusstop[1] < max.y && coordBusstop[0] > min.x && coordBusstop[1] > min.y)
     L.circleMarker(coordBusstop, {opacity : 1, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
    }
 }
