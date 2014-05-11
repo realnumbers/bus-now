@@ -53,13 +53,15 @@ function showBusstopMap(L, map, slide) {
 		console.log("Selected Destination");
 		console.log(el);
 		var id = el.target.options.title;
-		alert(usedBusstops[id].name);
+		//alert(usedBusstops[id].name);
 		switchToArr();
 	}
 
 	function switchToArr() {
-		$("#msg-des").hide();
-		$("#msg-arr").show();
+		/*$("#msg-des").hide();
+		$("#msg-arr").show();*/
+		hideDesMsg();
+		showArrMsg();
 		markerGroup.clearLayers();
 		showBusstopMap(L, map, "arr");
 	}
@@ -111,7 +113,7 @@ function loadBusstopsList() {
 function hideDesMsg() {
 	console.log("hide des");
 	$("#msg-des").removeClass("zero").addClass("left");
-	showArrMsg();
+	//showArrMsg();
 }
 function showArrMsg() {
 	console.log("show arr")
