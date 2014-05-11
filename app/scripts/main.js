@@ -54,6 +54,11 @@ function showBusstopMap(slide) {
 		console.log(el);
 		var id = el.target.options.title;
 		//alert(usedBusstops[id].name);
+		$(".top-msg").hide();
+		$(".header-bar").css("background-color", "rgba(255, 255, 255, 0)");
+		$(".darken").removeClass("hidden");
+		$(".popup").removeClass("hidden");
+		
     getDepBusstop(id);
 	}
 
@@ -233,6 +238,7 @@ function showMenu() {
 function blurForeground() {
 	$(".about").addClass("hidden");
 	$(".darken").addClass("hidden");
+	$(".popup").addClass("hidden");
 }
 
 // Eliminates 300ms click delay on mobile 

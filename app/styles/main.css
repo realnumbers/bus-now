@@ -34,7 +34,7 @@ body {
 }
 .above-map {
 	position: absolute;
-	z-index: 100;
+	z-index: 10000;
 }
 .ui {
 	background-color: rgba(255, 255, 255, 0.90);
@@ -101,6 +101,7 @@ body {
 
 
 /* ABOUT */
+
 .darken {
 	position: absolute;
 	top:0;
@@ -133,29 +134,42 @@ body {
 	color: #318eff;
 }
 
+
 /* DETAILS */
 
+.popup {
+	position: relative;
+	top: 2.5em;
+	background-color: #fff;
+	padding: 0.8em 1.2em;
+}
+.triangle {
+	position: absolute;
+	bottom: 0;
+	margin: 0 auto;
+	background-color: #fff;
+}
 .details {}
 .arriving-bus {
 	margin-bottom: 0.6em;
 }
 .station-title {
 	margin-bottom: 0.5em;
-	font-size: 2em;
+	font-size: 1.3em;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
 .bus-time {
 	display: inline-block;
-	width: 3.3em;
-	font-size: 1.6em;
+	width: 7em;
+	font-size: 1.1em;
 	font-weight: 600;
 }
 .bus-line {
 	display: inline-block;
 	width: 2em;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	font-weight: 600;
 	margin-right: 0.2em;
 }
@@ -174,4 +188,9 @@ body {
 * {
 	box-shadow: none !important;
 	border-radius: 0 !important;
+}
+.leaflet-popup, .leaflet-popup-pane {
+	color: green !important;
+	position: relative;
+	z-index: 10000000000 !important;
 }
