@@ -68,7 +68,7 @@ function showBusstopMap(slide) {
 	}
 function drawPositon(coord) {
   var markerColor = "#00ff00";
-  var curr_pos = L.circleMarker(coord, {opacity : 1, radius : 20, color : markerColor, fillOpacity : 1, title : "Hello"}).addTo(markerGroup).on('click', onBusstopClickArr);
+  var curr_pos = L.circleMarker(coord, {opacity : 1, radius : 20, color : markerColor, fillOpacity : 1, title : "Hello"}).addTo(markerGroup);
   map.fitBounds(curr_pos.getBounds());
 }
 function showLine(id) {
