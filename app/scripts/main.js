@@ -66,6 +66,11 @@ function showBusstopMap(slide) {
 		markerGroup.clearLayers();
 		showLine(id);
 	}
+function drawPositon(coord) {
+  var markerColor = "#00ff00";
+  var curr_pos = L.circleMarker(coord, {opacity : 1, radius : 20, color : markerColor, fillOpacity : 1, title : "Hello"}).addTo(markerGroup).on('click', onBusstopClickArr);
+  map.fitBounds(curr_pos.getBounds());
+}
 function showLine(id) {
   var markerColor = "#318eff";
   var busstopList = getBusstopList()[UILang()];
@@ -77,21 +82,21 @@ function showLine(id) {
         if ( el.line[i] == busstopList[j].line[k] ) {
           coordBusstop[0] = parseFloat(busstopList[j].x);
           coordBusstop[1] = parseFloat(busstopList[j].y);
-          
+
           if (busstopList[j].id == id) {
-						arrival = busstopList[j].name;
+            arrival = busstopList[j].name;
             markerColor = "#ff0101";
             L.circleMarker(coordBusstop, {opacity : 1, radius : 20, color : markerColor, fillOpacity : 1, title : id}).addTo(markerGroup).on('click', onBusstopClickArr);
           }
           else {
             markerColor = "#318eff";						
-						
+
             L.circleMarker(coordBusstop, {opacity : 1, radius : 15, color : markerColor, fillOpacity : 1, title : busstopList[j].id}).addTo(markerGroup).on('click', onBusstopClickDep);
           }
 
         }
       }
-     }
+    }
   }
 }
 
@@ -107,30 +112,30 @@ function getBusstopById(id) {
   }
   return busstopList[i];
 }
-  
+
 function matchBusstop(id) {
   var lang = UILang();
   var pair = getBusstopPair()[lang]; 
   var busstops = getBusstopList()[lang]; 
   var j;
   var found = false;
-    j = 0;
-    found = false;
-    while (found == false && j < pair.length) {
-      var tmp = pair[j].id.split(":");
-      if (id == (":" + tmp[1] + ":") || id == (":" + tmp[2] + ":")) {
-        found = true;
-        console.log("found match");
-        id = pair[j].id;
-      }
-      j++;
+  j = 0;
+  found = false;
+  while (found == false && j < pair.length) {
+    var tmp = pair[j].id.split(":");
+    if (id == (":" + tmp[1] + ":") || id == (":" + tmp[2] + ":")) {
+      found = true;
+      console.log("found match");
+      id = pair[j].id;
+    }
+    j++;
   }
   return id;
 }
 
 
 function checkLine() {
-	return true;
+  return true;
 }
 
 function getDepBusstop(id) {
@@ -194,6 +199,8 @@ function currentPosition() {
     function success(position) {
       coord[0] = position.coords.latitude;
       coord[1] = position.coords.longitude;
+      alert("Found Positon");
+      drawPositon(coord);
     };
     function error() {
       console.log("Unable to retrieve your location, use default position");
