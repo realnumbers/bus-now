@@ -233,7 +233,7 @@ function showArrMsg() {
 }
 function loadBusstopsListPair() {
   if (!localStorage.busstopsPair){
-    $.getJSON( "data/busstops_pair.json", function(data) {
+    $.getJSON( "app/data/busstops_pair.json", function(data) {
       localStorage.setItem('busstopsPair', JSON.stringify(data));
     });
   }
@@ -241,7 +241,7 @@ function loadBusstopsListPair() {
 
 function loadLines() {
   if (!localStorage.lines){
-    $.getJSON( "data/lines.json", function(data) {
+    $.getJSON( "app/data/lines.json", function(data) {
       localStorage.setItem('lines', JSON.stringify(data));
     });
   }
