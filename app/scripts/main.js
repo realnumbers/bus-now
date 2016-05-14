@@ -215,7 +215,7 @@ function currentPosition() {
 
 function loadBusstopsList() {
   if (!localStorage.busstops) {
-    $.getJSON("data/busstops.json", function (data) {
+    $.getJSON("app/data/busstops.json", function (data) {
       localStorage.setItem('busstops', JSON.stringify(data));
       window.location.reload();
     });
